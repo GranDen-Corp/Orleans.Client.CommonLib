@@ -1,12 +1,18 @@
-namespace Orleans.Client.CommonLib
+﻿using System;
+using System.Threading.Tasks;
+using Orleans.Runtime;
+using Polly;
+using Polly.Retry;
+
+namespace GranDen.Orleans.Client.CommonLib
 {
     public static class OrleansClientConnectExtension
     {
         /// <summary>
         /// Make Orleans client do connect with default exponential backoff retry policy.
         /// </summary>
-        /// <param name="client"></param>
-        /// <param name="policy"></param>
+        /// <param name="client">The Orleans client build from <c>OrleansClientBuilder</c></param>
+        /// <param name="policy">Optional, default will be exponential backoff + jitter retry policy.</param>
         /// <returns></returns>
         public static Task<IClusterClient> ConnectWithRetryAsync(this IClusterClient client, AsyncRetryPolicy policy = null )
         {

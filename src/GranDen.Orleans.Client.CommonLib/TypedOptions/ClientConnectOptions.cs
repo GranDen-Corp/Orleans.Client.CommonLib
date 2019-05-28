@@ -1,4 +1,4 @@
-namespace Orleans.Client.CommonLib.TypedOptions
+namespace GranDen.Orleans.Client.CommonLib.TypedOptions
 {
     public class ClusterInfoOption
     {

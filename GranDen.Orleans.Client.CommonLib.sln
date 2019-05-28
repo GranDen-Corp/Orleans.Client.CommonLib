@@ -3,7 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orleans.Client.CommonLib", "src\Orleans.Client.CommonLib\Orleans.Client.CommonLib.csproj", "{1AA05AD3-4CFE-4381-8F2B-6DC5A0D0C787}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GranDen.Orleans.Client.CommonLib", "src\GranDen.Orleans.Client.CommonLib\GranDen.Orleans.Client.CommonLib.csproj", "{1AA05AD3-4CFE-4381-8F2B-6DC5A0D0C787}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{164EAB49-BC37-422D-9818-1304DB3755F0}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

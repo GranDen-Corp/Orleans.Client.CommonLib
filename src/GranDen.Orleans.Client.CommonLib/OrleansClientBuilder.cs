@@ -6,7 +6,7 @@ using Orleans.Configuration;
 using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Orleans.Client.CommonLib
+namespace GranDen.Orleans.Client.CommonLib
 {
     public static class OrleansClientBuilder
     {
