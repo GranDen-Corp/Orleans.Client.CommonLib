@@ -6,12 +6,17 @@
     <Company>GranDen Inc.</Company>
     <Authors>Isak Pao</Authors>
     <Version>1.0.0</Version>
-    <Description>Orleans (http://dotnet.github.io/orleans ) Client connection helper</Description>
+    <Description>Orleans (http://dotnet.github.io/orleans ) Client connection helper library</Description>
     <Copyright>Copyright (c) 2019 GranDen Corp.(狂點軟體開發)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryType>git</RepositoryType>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PackageTags>Orleans</PackageTags>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
