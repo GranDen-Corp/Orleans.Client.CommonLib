@@ -13,6 +13,9 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageTags>Orleans</PackageTags>
+    <RepositoryUrl>https://github.com/GranDen-Corp/Orleans.Client.CommonLib</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/GranDen-Corp/Orleans.Client.CommonLib</PackageProjectUrl>
+    <PackageReleaseNotes>1.0.0 : Initial release.</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
