@@ -1,0 +1,28 @@
+namespace Orleans.Client.CommonLib
+{
+    public static class OrleansClientConnectExtension
+    {
+        /// <summary>
+        /// Make Orleans client do connect with default exponential backoff retry policy.
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="policy"></param>
+        /// <returns></returns>
+        public static Task<IClusterClient> ConnectWithRetryAsync(this IClusterClient client, AsyncRetryPolicy policy = null )
+        {
+            var retryPolicy = policy;
+            if (retryPolicy == null)
+            {
+                // use exponential backoff + jitter strategy to the retry policy
+                // https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly
+                Random jitterer = new Random();
+                retryPolicy = Policy.Handle<SiloUnavailableException>().WaitAndRetryAsync(5,
+                    retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))+ TimeSpan.FromMilliseconds(jitterer.Next(0, 100)));
+            }
+
+            retryPolicy.ExecuteAsync(async () => { await client.Connect(); });
+            
+            return Task.FromResult(client);
+        }
+    }
+}
