@@ -14,7 +14,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageTags>Orleans</PackageTags>
     <RepositoryUrl>https://github.com/GranDen-Corp/Orleans.Client.CommonLib</RepositoryUrl>
-    <PackageProjectUrl>https://github.com/GranDen-Corp/Orleans.Client.CommonLib</PackageProjectUrl>
+    <PackageProjectUrl>https://www.nuget.org/packages/GranDen.Orleans.Client.CommonLib</PackageProjectUrl>
     <PackageReleaseNotes>1.0.1 : Fix client connect async method</PackageReleaseNotes>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
     <FileVersion>1.0.1.0</FileVersion>
@@ -27,6 +27,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>D:\repo\Orleans.Client.CommonLib\src\GranDen.Orleans.Client.CommonLib\GranDen.Orleans.Client.CommonLib.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="GranDen.Orleans.Client.CommonLib.xml" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
