@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>GranDen Inc.</Company>
     <Authors>Isak Pao</Authors>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Description>Orleans (http://dotnet.github.io/orleans ) Client connection helper library</Description>
     <Copyright>Copyright (c) 2019 GranDen Corp.(狂點軟體開發)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -15,11 +15,17 @@
     <PackageTags>Orleans</PackageTags>
     <RepositoryUrl>https://github.com/GranDen-Corp/Orleans.Client.CommonLib</RepositoryUrl>
     <PackageProjectUrl>https://github.com/GranDen-Corp/Orleans.Client.CommonLib</PackageProjectUrl>
-    <PackageReleaseNotes>1.0.0 : Initial release.</PackageReleaseNotes>
+    <PackageReleaseNotes>1.0.1 : Fix client connect async method</PackageReleaseNotes>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile></DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\repo\Orleans.Client.CommonLib\src\GranDen.Orleans.Client.CommonLib\GranDen.Orleans.Client.CommonLib.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

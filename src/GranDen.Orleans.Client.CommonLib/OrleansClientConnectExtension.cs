@@ -7,6 +7,9 @@ using Polly.Retry;
 
 namespace GranDen.Orleans.Client.CommonLib
 {
+    /// <summary>
+    /// Orleans Client connect utility
+    /// </summary>
     public static class OrleansClientConnectExtension
     {
         /// <summary>
@@ -15,7 +18,7 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="client">The Orleans client build from <c>OrleansClientBuilder</c></param>
         /// <param name="policy">Optional, default will be exponential backoff + jitter retry policy.</param>
         /// <returns></returns>
-        public static Task<IClusterClient> ConnectWithRetryAsync(this IClusterClient client, AsyncRetryPolicy policy = null )
+        public static Task ConnectWithRetryAsync(this IClusterClient client, AsyncRetryPolicy policy = null )
         {
             var retryPolicy = policy;
             if (retryPolicy == null)
@@ -27,9 +30,7 @@ namespace GranDen.Orleans.Client.CommonLib
                     retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt))+ TimeSpan.FromMilliseconds(jitterer.Next(0, 100)));
             }
 
-            retryPolicy.ExecuteAsync(async () => { await client.Connect(); });
-            
-            return Task.FromResult(client);
+            return retryPolicy.ExecuteAsync(async () => { await client.Connect(); });
         }
     }
 }
