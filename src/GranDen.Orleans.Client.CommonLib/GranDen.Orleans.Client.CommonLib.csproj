@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>GranDen Inc.</Company>
     <Authors>Isak Pao</Authors>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>Orleans (http://dotnet.github.io/orleans ) Client connection helper library</Description>
     <Copyright>Copyright (c) 2019 GranDen Corp.(狂點軟體開發)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -13,11 +13,12 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageTags>Orleans</PackageTags>
-    <RepositoryUrl>https://github.com/GranDen-Corp/Orleans.Client.CommonLib</RepositoryUrl>
+    <RepositoryUrl>https://github.com/GranDen-Corp/Orleans.Client.CommonLib.git</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <PackageProjectUrl>https://www.nuget.org/packages/GranDen.Orleans.Client.CommonLib</PackageProjectUrl>
-    <PackageReleaseNotes>1.0.1 : Fix client connect async method</PackageReleaseNotes>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
+    <PackageReleaseNotes>1.0.2 : Enable source link debugging</PackageReleaseNotes>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <FileVersion>1.0.2.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -41,9 +42,14 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Orleans.Core" Version="2.3.2" />
     <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="2.3.2" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19270-01">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Orleans.Providers.MongoDB" Version="2.4.0" />
     <PackageReference Include="Polly" Version="7.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.4" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
 
 </Project>
