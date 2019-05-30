@@ -42,10 +42,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Orleans.Core" Version="2.3.2" />
     <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="2.3.2" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19270-01">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
     <PackageReference Include="Orleans.Providers.MongoDB" Version="2.4.0" />
     <PackageReference Include="Polly" Version="7.1.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.4" />
