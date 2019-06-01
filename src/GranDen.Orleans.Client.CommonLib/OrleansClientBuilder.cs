@@ -9,6 +9,9 @@ using Orleans;
 
 namespace GranDen.Orleans.Client.CommonLib
 {
+    /// <summary>
+    /// Helper Class for easier creating Orleans RPC Client
+    /// </summary>
     public static class OrleansClientBuilder
     {
         /// <summary>
@@ -18,7 +21,7 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="clusterInfo"></param>
         /// <param name="providerOption"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use serilog, set to false to use Orleans' original logging.</param>
+        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logging.</param>
         /// <returns></returns>
         public static IClusterClient CreateClient(ILogger logger,
             ClusterInfoOption clusterInfo,

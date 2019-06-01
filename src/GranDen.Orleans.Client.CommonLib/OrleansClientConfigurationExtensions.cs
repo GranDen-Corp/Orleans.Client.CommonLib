@@ -16,16 +16,16 @@ namespace GranDen.Orleans.Client.CommonLib
         /// Get client typed config object helper method
         /// </summary>
         /// <param name="configurationRoot"></param>
-        /// <param name="orleansSecetionKey"></param>
-        /// <param name="orleansSiloClusterSectionKey"></param>
-        /// <param name="orleansSiloProviderSectionKey"></param>
+        /// <param name="orleansSectionKey">Top section key for Orleans setting, default will be "Orleans"</param>
+        /// <param name="orleansSiloClusterSectionKey">Cluster section key, default will be "Cluster"</param>
+        /// <param name="orleansSiloProviderSectionKey">Storage section key, default will be "Provider"</param>
         /// <returns></returns>
         public static (ClusterInfoOption, OrleansProviderOption) GetSiloSettings(this IConfigurationRoot configurationRoot, 
-                                string orleansSecetionKey = "Orleans", 
+                                string orleansSectionKey = "Orleans", 
                                 string orleansSiloClusterSectionKey = "Cluster", 
                                 string orleansSiloProviderSectionKey = "Provider")
         {
-           var config = configurationRoot.GetSection(orleansSecetionKey);
+           var config = configurationRoot.GetSection(orleansSectionKey);
 
             var clusterInfo = new ClusterInfoOption();
             config.GetSection(orleansSiloClusterSectionKey).Bind(clusterInfo);
