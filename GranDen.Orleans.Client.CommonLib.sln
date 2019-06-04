@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.645
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28922.388
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GranDen.Orleans.Client.CommonLib", "src\GranDen.Orleans.Client.CommonLib\GranDen.Orleans.Client.CommonLib.csproj", "{1AA05AD3-4CFE-4381-8F2B-6DC5A0D0C787}"
 EndProject
@@ -9,6 +9,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "example", "example", "{E7280482-A872-4B2F-B672-F16D35C78AB8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalConsoleSiloHost", "example\LocalConsoleSiloHost\LocalConsoleSiloHost.csproj", "{04E34B84-F969-41D3-A7C8-65C5D30927D9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld.Grains", "example\HelloWorld.Grains\HelloWorld.Grains.csproj", "{6D211B98-0C33-4854-86EB-D81DC5B93E58}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloWorld.ShareInterface", "example\HelloWorld.ShareInterface\HelloWorld.ShareInterface.csproj", "{EC3ED621-6220-4E1E-95D0-569BCCCF959A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrleansDemoClient", "example\OrleansDemoClient\OrleansDemoClient.csproj", "{F667FD5D-7C19-430C-BA7B-9CE7F415DDAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +30,31 @@ Global
 		{1AA05AD3-4CFE-4381-8F2B-6DC5A0D0C787}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AA05AD3-4CFE-4381-8F2B-6DC5A0D0C787}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AA05AD3-4CFE-4381-8F2B-6DC5A0D0C787}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04E34B84-F969-41D3-A7C8-65C5D30927D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04E34B84-F969-41D3-A7C8-65C5D30927D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04E34B84-F969-41D3-A7C8-65C5D30927D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04E34B84-F969-41D3-A7C8-65C5D30927D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D211B98-0C33-4854-86EB-D81DC5B93E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D211B98-0C33-4854-86EB-D81DC5B93E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D211B98-0C33-4854-86EB-D81DC5B93E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D211B98-0C33-4854-86EB-D81DC5B93E58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC3ED621-6220-4E1E-95D0-569BCCCF959A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3ED621-6220-4E1E-95D0-569BCCCF959A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3ED621-6220-4E1E-95D0-569BCCCF959A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3ED621-6220-4E1E-95D0-569BCCCF959A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F667FD5D-7C19-430C-BA7B-9CE7F415DDAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F667FD5D-7C19-430C-BA7B-9CE7F415DDAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F667FD5D-7C19-430C-BA7B-9CE7F415DDAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F667FD5D-7C19-430C-BA7B-9CE7F415DDAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04E34B84-F969-41D3-A7C8-65C5D30927D9} = {E7280482-A872-4B2F-B672-F16D35C78AB8}
+		{6D211B98-0C33-4854-86EB-D81DC5B93E58} = {E7280482-A872-4B2F-B672-F16D35C78AB8}
+		{EC3ED621-6220-4E1E-95D0-569BCCCF959A} = {E7280482-A872-4B2F-B672-F16D35C78AB8}
+		{F667FD5D-7C19-430C-BA7B-9CE7F415DDAB} = {E7280482-A872-4B2F-B672-F16D35C78AB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B5DA4A91-53DE-4C05-AFD5-FF204D19313B}

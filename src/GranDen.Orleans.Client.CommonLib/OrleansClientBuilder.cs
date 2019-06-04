@@ -55,7 +55,7 @@ namespace GranDen.Orleans.Client.CommonLib
                 });
             }
 
-            if(applicationPartTypes != null)
+            if (applicationPartTypes != null)
             {
                 clientBuilder.ConfigureApplicationParts(manager =>
                 {
@@ -65,8 +65,41 @@ namespace GranDen.Orleans.Client.CommonLib
                     }
                 });
             }
-            
-            if(usingSerilog)
+
+            if (usingSerilog)
+            {
+                clientBuilder.ConfigureLogging(builder => { builder.AddSerilog(dispose: true); });
+            }
+
+            try
+            {
+                return clientBuilder.Build();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Create Silo Client failed");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a local connect only silo host client
+        /// </summary>
+        /// <param name="logger">Logger to log ClientBuilder operation information</param>
+        /// <param name="gatewayPort"></param>
+        /// <param name="serviceId"></param>
+        /// <param name="clusterId"></param>
+        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logging.</param>
+        /// <returns></returns>
+        public static IClusterClient CreateLocalhostClient(ILogger logger,
+            int gatewayPort = 30000,
+            string clusterId = "dev",
+            string serviceId = "dev",
+            bool usingSerilog = true)
+        {
+            var clientBuilder = new ClientBuilder().UseLocalhostClustering(gatewayPort, serviceId, clusterId);
+
+            if (usingSerilog)
             {
                 clientBuilder.ConfigureLogging(builder => { builder.AddSerilog(dispose: true); });
             }
