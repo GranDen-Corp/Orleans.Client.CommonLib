@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using GranDen.Orleans.Client.CommonLib.TypedOptions;
+﻿using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using Microsoft.Extensions.Configuration;
 
 namespace GranDen.Orleans.Client.CommonLib
@@ -20,18 +16,32 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="orleansSiloClusterSectionKey">Cluster section key, default will be "Cluster"</param>
         /// <param name="orleansSiloProviderSectionKey">Storage section key, default will be "Provider"</param>
         /// <returns></returns>
-        public static (ClusterInfoOption, OrleansProviderOption) GetSiloSettings(this IConfigurationRoot configurationRoot, 
-                                string orleansSectionKey = "Orleans", 
-                                string orleansSiloClusterSectionKey = "Cluster", 
+        public static (ClusterInfoOption, OrleansProviderOption) GetSiloSettings(this IConfigurationRoot configurationRoot,
+                                string orleansSectionKey = "Orleans",
+                                string orleansSiloClusterSectionKey = "Cluster",
                                 string orleansSiloProviderSectionKey = "Provider")
         {
-           var config = configurationRoot.GetSection(orleansSectionKey);
+            var config = configurationRoot.GetSection(orleansSectionKey);
 
+            return config.GetSiloSettings(orleansSiloClusterSectionKey, orleansSiloProviderSectionKey);
+        }
+
+        /// <summary>
+        /// Get client typed config object helper method
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="orleansSiloClusterSectionKey">Cluster section key, default will be "Cluster"</param>
+        /// <param name="orleansSiloProviderSectionKey">Storage section key, default will be "Provider"</param>
+        /// <returns></returns>
+        public static (ClusterInfoOption, OrleansProviderOption) GetSiloSettings(this IConfiguration configuration,
+                                string orleansSiloClusterSectionKey = "Cluster",
+                                string orleansSiloProviderSectionKey = "Provider")
+        {
             var clusterInfo = new ClusterInfoOption();
-            config.GetSection(orleansSiloClusterSectionKey).Bind(clusterInfo);
+            configuration.GetSection(orleansSiloClusterSectionKey).Bind(clusterInfo);
 
             var providerOption = new OrleansProviderOption();
-            config.GetSection(orleansSiloProviderSectionKey).Bind(providerOption);
+            configuration.GetSection(orleansSiloProviderSectionKey).Bind(providerOption);
 
             return (clusterInfo, providerOption);
         }

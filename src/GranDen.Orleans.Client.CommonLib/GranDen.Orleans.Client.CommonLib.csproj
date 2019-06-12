@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>GranDen Inc.</Company>
     <Authors>Isak Pao</Authors>
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
     <Description>Orleans (http://dotnet.github.io/orleans ) Client connection helper library</Description>
     <Copyright>Copyright (c) 2019 GranDen Corp.(狂點軟體開發)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -17,9 +17,9 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageTags>Orleans</PackageTags>
     <PackageProjectUrl>https://www.nuget.org/packages/GranDen.Orleans.Client.CommonLib</PackageProjectUrl>
-    <PackageReleaseNotes>1.0.6 : Match server version</PackageReleaseNotes>
-    <AssemblyVersion>1.0.6.0</AssemblyVersion>
-    <FileVersion>1.0.6.0</FileVersion>
+    <PackageReleaseNotes>1.0.7 : Add retry count parameter and IConfiguration utility method</PackageReleaseNotes>
+    <AssemblyVersion>1.0.7.0</AssemblyVersion>
+    <FileVersion>1.0.7.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
