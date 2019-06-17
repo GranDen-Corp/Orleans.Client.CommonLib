@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Hosting;
-using System;
 using System.Net;
 using System.Threading.Tasks;
 using HelloWorld.Grains;
