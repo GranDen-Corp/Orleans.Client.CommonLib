@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Orleans;
 using Orleans.Runtime;
 using Polly;
 using Polly.Retry;
+// ReSharper disable UnusedMember.Global
 
 namespace GranDen.Orleans.Client.CommonLib
 {
@@ -16,23 +18,59 @@ namespace GranDen.Orleans.Client.CommonLib
         /// Make Orleans client do connect with default exponential back off retry policy.
         /// </summary>
         /// <param name="client">The Orleans client build from <c>OrleansClientBuilder</c></param>
+        /// <param name="cancellationToken">Stop trying to connect token</param>
         /// <param name="retryCount">Retry count, default is 5.</param>
         /// <param name="policy">Optional, default will be exponential back off + jitter retry policy.</param>
         /// <returns></returns>
-        public static Task ConnectWithRetryAsync(this IClusterClient client, int retryCount = 5,  AsyncRetryPolicy policy = null)
+        public static Task ConnectWithRetryAsync(this IClusterClient client, CancellationToken cancellationToken, int retryCount = 5, AsyncRetryPolicy policy = null)
         {
             var retryPolicy = policy;
             if (retryPolicy == null)
             {
-                // use exponential back off + jitter strategy to the retry policy
-                // https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly
-                Random random = new Random();
-                retryPolicy = Policy.Handle<SiloUnavailableException>()
-                    .WaitAndRetryAsync(retryCount, retryAttempt =>
-                         TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)) + TimeSpan.FromMilliseconds(random.Next(0, 100)));
+                var random = new Random();
+                retryPolicy = CreateRetryPolicy(random, retryCount);
             }
 
-            return retryPolicy.ExecuteAsync(async () => { await client.Connect(); });
+            return retryPolicy.ExecuteAsync(ct => client.Connect((ex) =>
+            {
+                if (ct.IsCancellationRequested)
+                {
+                    return Task.FromResult(false);
+                }
+                return Task.FromResult(true);
+            }), cancellationToken);
         }
+
+        /// <summary>
+        /// Make Orleans client do connect with default exponential back off retry policy.
+        /// </summary>
+        /// <param name="client">The Orleans client build from <c>OrleansClientBuilder</c></param>
+        /// <param name="retryCount">Retry count, default is 5.</param>
+        /// <param name="policy">Optional, default will be exponential back off + jitter retry policy.</param>
+        /// <returns></returns>
+        public static Task ConnectWithRetryAsync(this IClusterClient client, int retryCount = 5, AsyncRetryPolicy policy = null)
+        {
+            var retryPolicy = policy;
+            if (retryPolicy == null)
+            {
+                var random = new Random();
+                retryPolicy = CreateRetryPolicy(random, retryCount);
+            }
+
+            return retryPolicy.ExecuteAsync(() => client.Connect());
+        }
+
+        #region Private Methods
+
+        private static AsyncRetryPolicy CreateRetryPolicy(Random random, int retryCount)
+        {
+            // use exponential back off + jitter strategy to the retry policy
+            // https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly
+            return Policy.Handle<SiloUnavailableException>()
+                .WaitAndRetryAsync(retryCount, retryAttempt =>
+                    TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)) + TimeSpan.FromMilliseconds(random.Next(0, 100)));
+        }
+
+        #endregion
     }
 }

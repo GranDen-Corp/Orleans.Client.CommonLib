@@ -5,7 +5,6 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Company>GranDen Inc.</Company>
     <Authors>Isak Pao</Authors>
-    <Version>1.0.8</Version>
     <Description>Orleans (http://dotnet.github.io/orleans ) Client connection helper library</Description>
     <Copyright>Copyright (c) 2019 GranDen Corp.(狂點軟體開發)</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -17,17 +16,18 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageTags>Orleans</PackageTags>
     <PackageProjectUrl>https://www.nuget.org/packages/GranDen.Orleans.Client.CommonLib</PackageProjectUrl>
-    <PackageReleaseNotes>1.0.8 : Update Orleans nugets to v2.3.5</PackageReleaseNotes>
-    <AssemblyVersion>1.0.8.0</AssemblyVersion>
-    <FileVersion>1.0.8.0</FileVersion>
+    <PackageReleaseNotes>1.1.0 : 1. Add Cancellation Token API 2. Update Orleans nugets to v2.3.5</PackageReleaseNotes>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>./GranDen.Orleans.Client.CommonLib.xml</DocumentationFile>
+    <OutputPath>../../output/debug</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>./GranDen.Orleans.Client.CommonLib.xml</DocumentationFile>
+    <OutputPath>../../output/release</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>

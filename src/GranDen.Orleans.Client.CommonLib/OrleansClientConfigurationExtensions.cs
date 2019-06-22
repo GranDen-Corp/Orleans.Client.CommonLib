@@ -1,5 +1,6 @@
 ﻿using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using Microsoft.Extensions.Configuration;
+// ReSharper disable UnusedMember.Global
 
 namespace GranDen.Orleans.Client.CommonLib
 {
@@ -37,13 +38,24 @@ namespace GranDen.Orleans.Client.CommonLib
                                 string orleansSiloClusterSectionKey = "Cluster",
                                 string orleansSiloProviderSectionKey = "Provider")
         {
-            var clusterInfo = new ClusterInfoOption();
-            configuration.GetSection(orleansSiloClusterSectionKey).Bind(clusterInfo);
-
-            var providerOption = new OrleansProviderOption();
-            configuration.GetSection(orleansSiloProviderSectionKey).Bind(providerOption);
+            var clusterInfo = configuration.GetOptionObject<ClusterInfoOption>(orleansSiloClusterSectionKey);
+            var providerOption = configuration.GetOptionObject<OrleansProviderOption>(orleansSiloProviderSectionKey);
 
             return (clusterInfo, providerOption);
+        }
+
+        /// <summary>
+        /// Bind Typed Option Class from .NET Core's Configuration
+        /// </summary>
+        /// <typeparam name="TObj"></typeparam>
+        /// <param name="configuration"></param>
+        /// <param name="sectionKey"></param>
+        /// <returns></returns>
+        public static TObj GetOptionObject<TObj>(this IConfiguration configuration, string sectionKey) where TObj : new()
+        {
+            var retObj = new TObj();
+            configuration.GetSection(sectionKey).Bind(retObj);
+            return retObj;
         }
     }
 }
