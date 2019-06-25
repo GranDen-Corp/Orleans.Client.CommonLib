@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
 
-namespace OrleansDemoClient
+namespace LocalhostDemoClient
 {
     class Program
     {

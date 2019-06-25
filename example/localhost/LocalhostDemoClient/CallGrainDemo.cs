@@ -3,7 +3,7 @@ using GranDen.Orleans.Client.CommonLib;
 using HelloWorld.ShareInterface;
 using Microsoft.Extensions.Logging;
 
-namespace OrleansDemoClient
+namespace LocalhostDemoClient
 {
     public class CallGrainDemo
     {
@@ -26,7 +26,7 @@ namespace OrleansDemoClient
                 _logger.LogInformation("Get hello world grain, start calling RPC methods...");
 
                 var returnValue = await grain.SayHello("Hello Orleans");
-                _logger.LogInformation($"RPC method return value is \r\n{{{returnValue}}}");
+                _logger.LogInformation($"RPC method return value is \r\n{{{returnValue}}}\r\n");
 
                 await client.Close();
                 _logger.LogInformation("Client successfully close connection to silo host");

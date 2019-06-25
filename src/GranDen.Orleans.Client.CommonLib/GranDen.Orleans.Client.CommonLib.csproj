@@ -16,8 +16,8 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageTags>Orleans</PackageTags>
     <PackageProjectUrl>https://www.nuget.org/packages/GranDen.Orleans.Client.CommonLib</PackageProjectUrl>
-    <PackageReleaseNotes>1.1.0 : 1. Add Cancellation Token API 2. Update Orleans nugets to v2.3.5</PackageReleaseNotes>
-    <Version>1.1.0</Version>
+    <PackageReleaseNotes>1.1.1 : Add configurated ClientBuilder API</PackageReleaseNotes>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
