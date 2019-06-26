@@ -13,14 +13,6 @@
             }
         },
         {
-            "label": "build lib",
-            "command": "${workspaceFolder}/build_debug_nugets.ps1",
-            "promptOnClose": false,
-            "type": "shell",            
-            "group": "build"
-
-        },
-        {
             "label": "build Rpc Interface",
             "command": "dotnet",
             "type": "process",
@@ -38,7 +30,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/example/LocalConsoleSiloHost/LocalConsoleSiloHost.csproj"
+                "${workspaceFolder}/example/localhost/LocalConsoleSiloHost/LocalConsoleSiloHost.csproj"
             ],
             "problemMatcher": "$msCompile",
             "promptOnClose": false,
@@ -51,13 +43,12 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/example/OrleansDemoClient/OrleansDemoClient.csproj"
+                "${workspaceFolder}/example/localhost/LocalhostDemoClient/LocalhostDemoClient.csproj"
             ],
             "problemMatcher": "$msCompile",
             "promptOnClose": false,
             "group": "build",
             "dependsOn":[
-                "build lib",
                 "build Rpc Interface"
             ]
         }
