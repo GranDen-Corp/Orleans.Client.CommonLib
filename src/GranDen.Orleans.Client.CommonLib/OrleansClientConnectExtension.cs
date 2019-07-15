@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Runtime;
 using Polly;
@@ -21,8 +22,9 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="cancellationToken">Stop trying to connect token</param>
         /// <param name="retryCount">Retry count, default is 5.</param>
         /// <param name="policy">Optional, default will be exponential back off + jitter retry policy.</param>
+        /// <param name="logger"></param>
         /// <returns></returns>
-        public static Task ConnectWithRetryAsync(this IClusterClient client, CancellationToken cancellationToken, int retryCount = 5, AsyncRetryPolicy policy = null)
+        public static Task ConnectWithRetryAsync(this IClusterClient client, CancellationToken cancellationToken, int retryCount = 5, AsyncRetryPolicy policy = null, ILogger logger = null)
         {
             var retryPolicy = policy;
             if (retryPolicy == null)
@@ -33,6 +35,11 @@ namespace GranDen.Orleans.Client.CommonLib
 
             return retryPolicy.ExecuteAsync(ct => client.Connect((ex) =>
             {
+                if(logger != null)
+                {
+                    logger.LogInformation(ex, "Jitter error occurred");
+                }
+
                 if (ct.IsCancellationRequested)
                 {
                     return Task.FromResult(false);

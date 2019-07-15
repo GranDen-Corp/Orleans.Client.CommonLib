@@ -16,8 +16,8 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageTags>Orleans</PackageTags>
     <PackageProjectUrl>https://www.nuget.org/packages/GranDen.Orleans.Client.CommonLib</PackageProjectUrl>
-    <PackageReleaseNotes>1.1.1 : Add configurated ClientBuilder API</PackageReleaseNotes>
-    <Version>1.1.1</Version>
+    <PackageReleaseNotes>1.1.2 : Add optional logger parameter for connection troubleshooting </PackageReleaseNotes>
+    <Version>1.1.2-beta</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
