@@ -37,13 +37,14 @@ namespace GranDen.Orleans.Client.CommonLib
             {
                 if(logger != null)
                 {
-                    logger.LogInformation(ex, "Jitter error occurred");
+                    logger.LogDebug(ex, "Jitter error occurred");
                 }
 
                 if (ct.IsCancellationRequested)
                 {
                     return Task.FromResult(false);
                 }
+
                 return Task.FromResult(true);
             }), cancellationToken);
         }
@@ -54,8 +55,9 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="client">The Orleans client build from <c>OrleansClientBuilder</c></param>
         /// <param name="retryCount">Retry count, default is 5.</param>
         /// <param name="policy">Optional, default will be exponential back off + jitter retry policy.</param>
+        /// <param name="logger"></param>
         /// <returns></returns>
-        public static Task ConnectWithRetryAsync(this IClusterClient client, int retryCount = 5, AsyncRetryPolicy policy = null)
+        public static Task ConnectWithRetryAsync(this IClusterClient client, int retryCount = 5, AsyncRetryPolicy policy = null, ILogger logger = null)
         {
             var retryPolicy = policy;
             if (retryPolicy == null)
@@ -64,7 +66,15 @@ namespace GranDen.Orleans.Client.CommonLib
                 retryPolicy = CreateRetryPolicy(random, retryCount);
             }
 
-            return retryPolicy.ExecuteAsync(() => client.Connect());
+            return retryPolicy.ExecuteAsync(() => client.Connect((ex) => 
+            {
+                if (logger != null)
+                {
+                    logger.LogDebug(ex, "Jitter error occurred");
+                }
+
+                return Task.FromResult(true);
+            }));
         }
 
         #region Private Methods
