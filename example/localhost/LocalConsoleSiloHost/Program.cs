@@ -7,14 +7,15 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
+using System;
 
 namespace LocalConsoleSiloHost
 {
     class Program
     {
-        static Task Main(string[] args)
+        static async Task Main(string[] args)
         {
-            return new HostBuilder()
+            var hostBuilder = new HostBuilder()
                 .UseOrleans(builder =>
                 {
                     builder
@@ -28,7 +29,7 @@ namespace LocalConsoleSiloHost
                         .ConfigureApplicationParts(parts =>
                         {
                             parts.AddFromDependencyContext(typeof(HelloGrain).Assembly);
-                            
+
                         });
                 })
                 .ConfigureServices(services =>
@@ -41,8 +42,16 @@ namespace LocalConsoleSiloHost
                 .ConfigureLogging(builder =>
                 {
                     builder.AddConsole();
-                })
-                .RunConsoleAsync();
-        }
+                });
+
+            try
+            {
+                await hostBuilder.RunConsoleAsync();
+            }
+            catch (OperationCanceledException ex)
+            {
+                Console.WriteLine($"Temporary failure, ex={ex}");
+            }
+         }
     }
 }
