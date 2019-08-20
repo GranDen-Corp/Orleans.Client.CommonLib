@@ -41,11 +41,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Orleans.Core" Version="2.4.1" />
+    <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="2.4.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
-    <PackageReference Include="Orleans.Providers.MongoDB" Version="2.5.0" />
+    <PackageReference Include="Orleans.Providers.MongoDB" Version="2.7.0" />
     <PackageReference Include="Polly" Version="7.1.0" />
-    <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.4" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
 
