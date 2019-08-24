@@ -6,6 +6,7 @@ using Orleans.Configuration;
 using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using Orleans;
+using Orleans.Hosting;
 
 
 namespace GranDen.Orleans.Client.CommonLib
@@ -58,8 +59,19 @@ namespace GranDen.Orleans.Client.CommonLib
         {
             var clientBuilder = new ClientBuilder()
                 .ConfigureCluster(clusterInfo, TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(60));
+            if(providerOption.DefaultProvider.ToLower() == "sqldb")
+            {
+                logger.LogTrace("Using SQL DB provider");
+                clientBuilder.UseAdoNetClustering(options =>
+                {
+                    var sqlDbSetting = providerOption.SQLDB.Cluster;
 
-            if (providerOption.DefaultProvider == "MongoDB")
+                    options.Invariant = sqlDbSetting.Invariant;
+                    options.ConnectionString = sqlDbSetting.DbConn;
+                });
+
+            }
+            else if (providerOption.DefaultProvider.ToLower() == "mongodb")
             {
                 logger.LogTrace("Using MongoDB provider...");
                 clientBuilder.UseMongoDBClustering(options =>

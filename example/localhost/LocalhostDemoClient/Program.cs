@@ -19,8 +19,14 @@ namespace LocalhostDemoClient
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var logger = GetLogger<Program>(serviceProvider);
 
-            logger.LogInformation("Press enter to run demo");
-            Console.ReadLine();
+            logger.LogInformation("Press space key to start demo");
+            do
+            {
+                while (!Console.KeyAvailable)
+                {
+                    //wait
+                }
+            } while (Console.ReadKey(true).Key != ConsoleKey.Spacebar);
 
             try
             {

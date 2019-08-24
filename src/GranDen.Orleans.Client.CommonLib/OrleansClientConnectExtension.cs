@@ -35,17 +35,9 @@ namespace GranDen.Orleans.Client.CommonLib
 
             return retryPolicy.ExecuteAsync(ct => client.Connect((ex) =>
             {
-                if(logger != null)
-                {
-                    logger.LogDebug(ex, "Jitter error occurred");
-                }
+                logger?.LogDebug(ex, "Jitter error occurred");
 
-                if (ct.IsCancellationRequested)
-                {
-                    return Task.FromResult(false);
-                }
-
-                return Task.FromResult(true);
+                return Task.FromResult(!ct.IsCancellationRequested);
             }), cancellationToken);
         }
 
@@ -68,10 +60,7 @@ namespace GranDen.Orleans.Client.CommonLib
 
             return retryPolicy.ExecuteAsync(() => client.Connect((ex) => 
             {
-                if (logger != null)
-                {
-                    logger.LogDebug(ex, "Jitter error occurred");
-                }
+                logger?.LogDebug(ex, "Jitter error occurred");
 
                 return Task.FromResult(true);
             }));
