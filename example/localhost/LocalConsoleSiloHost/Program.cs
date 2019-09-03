@@ -52,6 +52,6 @@ namespace LocalConsoleSiloHost
             {
                 Console.WriteLine($"Temporary failure, ex={ex}");
             }
-         }
+        }
     }
 }

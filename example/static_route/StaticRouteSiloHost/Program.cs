@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using System;
+using Microsoft.Extensions.Hosting;
 using System.Net;
 using System.Threading.Tasks;
 using HelloWorld.Grains;
@@ -12,9 +13,9 @@ namespace StaticRouteSiloHost
 {
     class Program
     {
-        static Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            return new HostBuilder()
+            var hostBuilder = new HostBuilder()
                 .UseOrleans(builder =>
                 {
                     builder
@@ -33,7 +34,6 @@ namespace StaticRouteSiloHost
                         .ConfigureApplicationParts(parts =>
                         {
                             parts.AddFromDependencyContext(typeof(HelloGrain).Assembly);
-                            
                         });
                 })
                 .ConfigureServices(services =>
@@ -43,12 +43,17 @@ namespace StaticRouteSiloHost
                         options.SuppressStatusMessages = true;
                     });
                 })
-                .ConfigureLogging(builder =>
-                {
-                    builder.AddConsole();
-                })
-                .UseConsoleLifetime()
-                .RunConsoleAsync();
+                .ConfigureLogging(builder => { builder.AddConsole(); })
+                .UseConsoleLifetime();
+
+            try
+            {
+                await hostBuilder.RunConsoleAsync();
+            }
+            catch (OperationCanceledException ex)
+            {
+                Console.WriteLine($"Temporary failure, ex={ex}");
+            }
         }
     }
 }
