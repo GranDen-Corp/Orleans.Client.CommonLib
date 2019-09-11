@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
-        <PackageReleaseNotes>1.1.9 : update Orleans v2.4.2 &amp; Polly 7.1.1</PackageReleaseNotes>
-        <Version>1.1.9</Version>
+        <PackageReleaseNotes>1.1.10 : Fix SQL DB clustering</PackageReleaseNotes>
+        <Version>1.1.10</Version>
     </PropertyGroup>
 </Project>

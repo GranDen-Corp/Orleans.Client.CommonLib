@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Orleans;
 using Orleans.Runtime;
 using Polly;
@@ -33,9 +34,14 @@ namespace GranDen.Orleans.Client.CommonLib
                 retryPolicy = CreateRetryPolicy(random, retryCount);
             }
 
+            if (logger == null)
+            {
+                logger = NullLogger.Instance;
+            }
+
             return retryPolicy.ExecuteAsync(ct => client.Connect((ex) =>
             {
-                logger?.LogDebug(ex, "Jitter error occurred");
+                logger.LogDebug(ex, "Jitter error occurred");
 
                 return Task.FromResult(!ct.IsCancellationRequested);
             }), cancellationToken);
@@ -58,9 +64,14 @@ namespace GranDen.Orleans.Client.CommonLib
                 retryPolicy = CreateRetryPolicy(random, retryCount);
             }
 
-            return retryPolicy.ExecuteAsync(() => client.Connect((ex) => 
+            if (logger == null)
             {
-                logger?.LogDebug(ex, "Jitter error occurred");
+                logger = NullLogger.Instance;
+            }
+
+            return retryPolicy.ExecuteAsync(() => client.Connect((ex) =>
+            {
+                logger.LogDebug(ex, "Jitter error occurred");
 
                 return Task.FromResult(true);
             }));
