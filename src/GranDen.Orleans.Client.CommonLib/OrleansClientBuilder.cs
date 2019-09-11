@@ -59,30 +59,30 @@ namespace GranDen.Orleans.Client.CommonLib
         {
             var clientBuilder = new ClientBuilder()
                 .ConfigureCluster(clusterInfo, TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(60));
-            if(providerOption.DefaultProvider.ToLower() == "sqldb")
+            switch (providerOption.DefaultProvider.ToLower())
             {
-                logger.LogTrace("Using SQL DB provider");
-                clientBuilder.UseAdoNetClustering(options =>
-                {
-                    var sqlDbSetting = providerOption.SQLDB.Cluster;
+                case "sqldb":
+                    logger.LogTrace("Using SQL DB provider");
+                    clientBuilder.UseAdoNetClustering(options =>
+                    {
+                        var sqlDbSetting = providerOption.SQLDB.Cluster;
 
-                    options.Invariant = sqlDbSetting.Invariant;
-                    options.ConnectionString = sqlDbSetting.DbConn;
-                });
+                        options.Invariant = sqlDbSetting.Invariant;
+                        options.ConnectionString = sqlDbSetting.DbConn;
+                    });
+                    break;
+                case "mongodb":
+                    logger.LogTrace("Using MongoDB provider...");
+                    clientBuilder.UseMongoDBClustering(options =>
+                    {
+                        var mongoSetting = providerOption.MongoDB.Cluster;
 
-            }
-            else if (providerOption.DefaultProvider.ToLower() == "mongodb")
-            {
-                logger.LogTrace("Using MongoDB provider...");
-                clientBuilder.UseMongoDBClustering(options =>
-                {
-                    var mongoSetting = providerOption.MongoDB.Cluster;
+                        options.ConnectionString = mongoSetting.DbConn;
+                        options.DatabaseName = mongoSetting.DbName;
 
-                    options.ConnectionString = mongoSetting.DbConn;
-                    options.DatabaseName = mongoSetting.DbName;
-
-                    options.CollectionPrefix = mongoSetting.CollectionPrefix;
-                });
+                        options.CollectionPrefix = mongoSetting.CollectionPrefix;
+                    });
+                    break;
             }
 
             if (applicationPartTypes != null)
@@ -125,7 +125,7 @@ namespace GranDen.Orleans.Client.CommonLib
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Creat Silo Client failed");
+                logger.LogError(ex, "Create Silo Client failed");
                 throw;
             }
         }
