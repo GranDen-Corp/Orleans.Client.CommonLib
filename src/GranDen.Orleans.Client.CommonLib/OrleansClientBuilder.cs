@@ -7,7 +7,7 @@ using Serilog;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using Orleans;
 using Orleans.Hosting;
-
+using Orleans.Runtime.Configuration;
 
 namespace GranDen.Orleans.Client.CommonLib
 {
@@ -58,7 +58,12 @@ namespace GranDen.Orleans.Client.CommonLib
             bool usingSerilog = true)
         {
             var clientBuilder = new ClientBuilder()
-                .ConfigureCluster(clusterInfo, TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(60));
+                .ConfigureCluster(clusterInfo, TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(60))
+                .Configure<StatisticsOptions>(options =>
+                {
+                    options.CollectionLevel = StatisticsLevel.Critical;
+                });
+
             switch (providerOption.DefaultProvider.ToLower())
             {
                 case "sqldb":
@@ -144,9 +149,13 @@ namespace GranDen.Orleans.Client.CommonLib
             IEnumerable<Type> applicationPartTypes = null,
             bool usingSerilog = true)
         {
-            var clientBuilder = new ClientBuilder();
-            clientBuilder.ConfigureCluster(clusterInfo, TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(60));
-            clientBuilder.UseStaticClustering(option =>
+            var clientBuilder = new ClientBuilder()
+                .ConfigureCluster(clusterInfo, TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(60))
+                .Configure<StatisticsOptions>(options =>
+                {
+                    options.CollectionLevel = StatisticsLevel.Critical;
+                })
+                .UseStaticClustering(option =>
                 {
                     option.Gateways = staticGatewayOption.Gateways;
                 });
@@ -201,7 +210,12 @@ namespace GranDen.Orleans.Client.CommonLib
             string serviceId = "dev",
             bool usingSerilog = true)
         {
-            var clientBuilder = new ClientBuilder().UseLocalhostClustering(gatewayPort, serviceId, clusterId);
+            var clientBuilder = new ClientBuilder()
+                .Configure<StatisticsOptions>(options =>
+                {
+                    options.CollectionLevel = StatisticsLevel.Critical;
+                })
+                .UseLocalhostClustering(gatewayPort, serviceId, clusterId);
 
             if (usingSerilog)
             {

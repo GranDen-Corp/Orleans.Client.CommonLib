@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
+using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
 
 namespace LocalhostDemoClient
@@ -11,7 +12,11 @@ namespace LocalhostDemoClient
     {
         static async Task Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration().WriteTo.Console(theme: AnsiConsoleTheme.Code).CreateLogger();
+            Log.Logger = new LoggerConfiguration()
+                //Turn off Orleans Statistics: ^^^ noisy logs
+                .MinimumLevel.Override("Orleans.RuntimeClientLogStatistics", LogEventLevel.Warning)
+                .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+                .CreateLogger();
 
             var serviceCollection = new ServiceCollection();
             ConfigureServices(serviceCollection);

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
+using Orleans.Runtime.Configuration;
 
 namespace SqlSiloHost
 {
@@ -33,6 +34,10 @@ namespace SqlSiloHost
                         {
                             options.ClusterId = "dev";
                             options.ServiceId = "HelloWorldApp";
+                        })
+                        .Configure<StatisticsOptions>(options =>
+                        {
+                            options.CollectionLevel = StatisticsLevel.Critical;
                         })
                         .Configure<EndpointOptions>(options =>
                         {
