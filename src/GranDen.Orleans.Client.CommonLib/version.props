@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
-        <PackageReleaseNotes>1.2.0 : Upgrade to use Orleans v3.0</PackageReleaseNotes>
+        <PackageReleaseNotes>1.2.0 : 1. Upgrade Orleans to v3.0, 2. Add MySQL provider</PackageReleaseNotes>
         <Version>1.2.0</Version>
     </PropertyGroup>
 </Project>

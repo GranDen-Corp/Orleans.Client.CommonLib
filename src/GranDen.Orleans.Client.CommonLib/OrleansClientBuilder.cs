@@ -76,6 +76,18 @@ namespace GranDen.Orleans.Client.CommonLib
                         options.ConnectionString = sqlDbSetting.DbConn;
                     });
                     break;
+
+                case "mysql":
+                    logger.LogTrace("Using MySQL DB provider");
+                    clientBuilder.UseAdoNetClustering(options => 
+                    {
+                        var mysqlDbSetting = providerOption.SQLDB.Cluster;
+
+                        options.Invariant = mysqlDbSetting.Invariant;
+                        options.ConnectionString = mysqlDbSetting.DbConn;
+                    });
+                    break;
+
                 case "mongodb":
                     logger.LogTrace("Using MongoDB provider...");
                     clientBuilder.UseMongoDBClustering(options =>

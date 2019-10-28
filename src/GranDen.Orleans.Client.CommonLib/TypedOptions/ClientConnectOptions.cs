@@ -26,7 +26,7 @@ namespace GranDen.Orleans.Client.CommonLib.TypedOptions
     public class OrleansProviderOption
     {
         /// <summary>
-        /// Default Storage Provider's name, support "SQLDB" and "MongoDB"
+        /// Default Storage Provider's name, support "SQLDB", "MYSQL" and "MongoDB"
         /// </summary>
         [Required]
         public string DefaultProvider { get; set; }
@@ -71,7 +71,7 @@ namespace GranDen.Orleans.Client.CommonLib.TypedOptions
     public class AdoNetProviderClusterSettings
     {
         /// <summary>
-        /// MongoDB connection string
+        /// Ado.net DB connection string
         /// </summary>
         [Required]
         public string DbConn { get; set; }
