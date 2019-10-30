@@ -72,7 +72,7 @@ namespace GranDen.Orleans.Client.CommonLib
                     {
                         var sqlDbSetting = providerOption.SQLDB.Cluster;
 
-                        options.Invariant = sqlDbSetting.Invariant;
+                        options.Invariant = sqlDbSetting.Invariant ?? @"System.Data.SqlClient";
                         options.ConnectionString = sqlDbSetting.DbConn;
                     });
                     break;
@@ -83,7 +83,7 @@ namespace GranDen.Orleans.Client.CommonLib
                     {
                         var mysqlDbSetting = providerOption.SQLDB.Cluster;
 
-                        options.Invariant = mysqlDbSetting.Invariant;
+                        options.Invariant = mysqlDbSetting.Invariant ?? @"MySql.Data.MySqlClient";
                         options.ConnectionString = mysqlDbSetting.DbConn;
                     });
                     break;

@@ -27,7 +27,6 @@ namespace MySqlConsoleClient
                     {
                         Cluster = new AdoNetProviderClusterSettings
                         {
-                            Invariant = @"MySql.Data.MySqlClient",
                             DbConn =
                                 @"Server=localhost;uid=root;pwd=Pass1234;Database=orleans_demo"
                         }

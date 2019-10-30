@@ -77,9 +77,9 @@ namespace GranDen.Orleans.Client.CommonLib.TypedOptions
         public string DbConn { get; set; }
 
         /// <summary>
-        /// ADO.NET driver assembly, default is <code>System.Data.SqlClient</code>
+        /// ADO.NET driver assembly name
         /// </summary>
-        public string Invariant { get; set; } = "System.Data.SqlClient";
+        public string Invariant { get; set; }
     }
 
     /// <summary>
