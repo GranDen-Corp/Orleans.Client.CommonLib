@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
-        <PackageReleaseNotes>1.2.1 : Simplify MySQL configuration</PackageReleaseNotes>
-        <Version>1.2.1</Version>
+        <PackageReleaseNotes>1.2.2 : Compatibility fix on both .NET Core 2.x &amp; 3.x SDK</PackageReleaseNotes>
+        <Version>1.2.2</Version>
     </PropertyGroup>
 </Project>

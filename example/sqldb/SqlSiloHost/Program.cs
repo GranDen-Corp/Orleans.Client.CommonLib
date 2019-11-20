@@ -15,7 +15,7 @@ namespace SqlSiloHost
     class Program
     {
         private static readonly string dbConnStr =
-            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Orleans;
+            @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Orleans_Cluster;
             Integrated Security=True;Pooling=False;Max Pool Size=200;
             MultipleActiveResultSets=True";
 

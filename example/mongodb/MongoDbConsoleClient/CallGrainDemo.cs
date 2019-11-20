@@ -3,13 +3,11 @@ using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using HelloWorld.ShareInterface;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlConsoleClient
+namespace MongoDbConsoleClient
 {
-    class CallGrainDemo
+    internal class CallGrainDemo
     {
         private readonly ILogger<CallGrainDemo> _logger;
 
@@ -22,24 +20,20 @@ namespace SqlConsoleClient
         {
             var clusterInfoOption = new ClusterInfoOption { ClusterId = "dev", ServiceId = "HelloWorldApp" };
 
-            var sqlDbProviderOption =
-                new OrleansProviderOption
-                {
-                    DefaultProvider = @"SQLDB",
-                    SQLDB = new AdoNetProviderSettings
-                    {
-                        Cluster = new AdoNetProviderClusterSettings
-                        {
-                            DbConn =
-                                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Orleans_Cluster;
-                                Integrated Security=True;Pooling=False;Max Pool Size=200;
-                                MultipleActiveResultSets=True"
-                        }
-                    }
-                };
+            var mongoDbProviderOption = new OrleansProviderOption
+            {
+                DefaultProvider = "mongodb",
+                MongoDB = new MongoDbProviderSettings 
+                { 
+                    Cluster = new MongoDbProviderClusterSettings 
+                    { 
+                        DbConn = "mongodb://localhost:27017",
+                        DbName = "demo-silo-Clustering"
+                    } 
+                }
+            };
 
-            using (var client =
-                OrleansClientBuilder.CreateClient(_logger, clusterInfoOption, sqlDbProviderOption, new[] { typeof(IHello) }))
+            using (var client = OrleansClientBuilder.CreateClient(_logger, clusterInfoOption, mongoDbProviderOption, new[] { typeof(IHello)}))
             {
                 await client.ConnectWithRetryAsync();
                 _logger.LogInformation("Client successfully connect to silo host");

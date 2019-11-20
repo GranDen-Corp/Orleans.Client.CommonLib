@@ -90,11 +90,9 @@ namespace GranDen.Orleans.Client.CommonLib
 
                 case "mongodb":
                     logger.LogTrace("Using MongoDB provider...");
-                    clientBuilder.UseMongoDBClustering(options =>
+                    var mongoSetting = providerOption.MongoDB.Cluster;
+                    clientBuilder.UseMongoDBClient(mongoSetting.DbConn).UseMongoDBClustering(options =>
                     {
-                        var mongoSetting = providerOption.MongoDB.Cluster;
-
-                        options.ConnectionString = mongoSetting.DbConn;
                         options.DatabaseName = mongoSetting.DbName;
 
                         options.CollectionPrefix = mongoSetting.CollectionPrefix;
