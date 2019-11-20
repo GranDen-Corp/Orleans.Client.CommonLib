@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup Condition=" '$(NETCoreSdkVersion)' &lt; 3">
+  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::Match($(NETCoreSdkVersion),'^2\.\d+\.[\w-]+').Success)">
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(NETCoreSdkVersion)' &gt;= 3">
+  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::Match($(NETCoreSdkVersion),'^3\.\d+\.[\w-]+').Success)">
     <TargetFrameworks>netcoreapp2.2;netcoreapp3.0</TargetFrameworks>
     <OutputType>Library</OutputType>
   </PropertyGroup>
