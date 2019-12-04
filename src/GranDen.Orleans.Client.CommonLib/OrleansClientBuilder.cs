@@ -23,7 +23,7 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="clusterInfo"></param>
         /// <param name="providerOption"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logging.</param>
+        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger</param>
         /// <returns></returns>
         public static IClusterClient CreateClient(ILogger logger,
             ClusterInfoOption clusterInfo,
@@ -49,7 +49,7 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="clusterInfo"></param>
         /// <param name="providerOption"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logging.</param>
+        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger</param>
         /// <returns></returns>
         public static IClientBuilder CreateClientBuilder(ILogger logger,
             ClusterInfoOption clusterInfo,
@@ -79,7 +79,7 @@ namespace GranDen.Orleans.Client.CommonLib
 
                 case "mysql":
                     logger.LogTrace("Using MySQL DB provider");
-                    clientBuilder.UseAdoNetClustering(options => 
+                    clientBuilder.UseAdoNetClustering(options =>
                     {
                         var mysqlDbSetting = providerOption.SQLDB.Cluster;
 
@@ -126,7 +126,7 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="clusterInfo"></param>
         /// <param name="staticGatewayOption"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logging.</param>
+        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger</param>
         /// <returns></returns>
         public static IClusterClient CreateStaticRouteClient(ILogger logger,
             ClusterInfoOption clusterInfo,
@@ -150,7 +150,7 @@ namespace GranDen.Orleans.Client.CommonLib
         /// </summary>
         /// <param name="clusterInfo"></param>
         /// <param name="staticGatewayOption"></param>
-        /// <param name="applicationPartTypes"></param>
+        /// <param name="applicationPartTypes">Application parts (optional)</param>
         /// <param name="usingSerilog"></param>
         /// <returns></returns>
         public static IClientBuilder CreateStaticRouteClientBuilder(
@@ -206,19 +206,49 @@ namespace GranDen.Orleans.Client.CommonLib
         }
 
         /// <summary>
-        /// Create a local connect only silo host client
+        /// Create a local silo connect only client
         /// </summary>
         /// <param name="logger">Logger to log ClientBuilder operation information</param>
         /// <param name="gatewayPort"></param>
         /// <param name="serviceId"></param>
         /// <param name="clusterId"></param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logging.</param>
+        /// <param name="applicationPartTypes">Application parts (optional)</param>
+        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger.</param>
         /// <returns></returns>
         public static IClusterClient CreateLocalhostClient(ILogger logger,
             int gatewayPort = 30000,
             string clusterId = "dev",
             string serviceId = "dev",
+            IEnumerable<Type> applicationPartTypes = null,
             bool usingSerilog = true)
+        {
+            try
+            {
+                var clientBuilder = CreateLocalhostClientBuilder(gatewayPort, clusterId, serviceId, applicationPartTypes, usingSerilog);
+                return clientBuilder.Build();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Create Silo Client failed");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Create a local connect only ClientBuilder
+        /// </summary>
+        /// <param name="gatewayPort"></param>
+        /// <param name="serviceId"></param>
+        /// <param name="clusterId"></param>
+        /// <param name="applicationPartTypes">Application parts (optional)</param>
+        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger.</param>
+        /// <returns></returns>
+        public static IClientBuilder CreateLocalhostClientBuilder(
+        int gatewayPort = 30000,
+        string clusterId = "dev",
+        string serviceId = "dev",
+        IEnumerable<Type> applicationPartTypes = null,
+        bool usingSerilog = true)
         {
             var clientBuilder = new ClientBuilder()
                 .Configure<StatisticsOptions>(options =>
@@ -227,20 +257,23 @@ namespace GranDen.Orleans.Client.CommonLib
                 })
                 .UseLocalhostClustering(gatewayPort, serviceId, clusterId);
 
+            if (applicationPartTypes != null)
+            {
+                clientBuilder.ConfigureApplicationParts(manager =>
+                {
+                    foreach (var applicationPartType in applicationPartTypes)
+                    {
+                        manager.AddApplicationPart(applicationPartType.Assembly).WithReferences();
+                    }
+                });
+            }
+
             if (usingSerilog)
             {
                 clientBuilder.ConfigureLogging(builder => { builder.AddSerilog(dispose: true); });
             }
 
-            try
-            {
-                return clientBuilder.Build();
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, "Create Silo Client failed");
-                throw;
-            }
+            return clientBuilder;
         }
     }
 }
