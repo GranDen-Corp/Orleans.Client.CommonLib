@@ -5,8 +5,8 @@
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::Match($(NETCoreSdkVersion),'^3\.\d+\.[\w-]+').Success)">
-    <TargetFrameworks>netcoreapp2.2;netcoreapp3.0</TargetFrameworks>
+  <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::Match($(NETCoreSdkVersion),'^3\.1\.[\w-]+').Success)">
+    <TargetFrameworks>netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
     <PackageReference Include="Microsoft.Orleans.Client" Version="3.0.1" />
     <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="3.0.1" />
 
@@ -69,7 +69,7 @@
     <PackageReference Include="Orleans.Providers.MongoDB" Version="3.1.1" />
     <PackageReference Include="Polly" Version="7.2.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.6.0" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
   </ItemGroup>
 
 </Project>
