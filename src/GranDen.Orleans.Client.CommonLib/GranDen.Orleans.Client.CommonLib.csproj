@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::Match($(NETCoreSdkVersion),'^2\.\d+\.[\w-]+').Success)">
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFrameworks>netcoreapp2.2;netstandard2.0</TargetFrameworks>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::Match($(NETCoreSdkVersion),'^3\.1\.[\w-]+').Success)">
-    <TargetFrameworks>netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2;netcoreapp3.0;netcoreapp3.1;netstandard2.0;netstandard2.1</TargetFrameworks>
     <OutputType>Library</OutputType>
   </PropertyGroup>
 
@@ -54,7 +54,7 @@
     <PackageReference Include="Microsoft.Orleans.Client" Version="3.0.1" />
     <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="3.0.1" />
 
-    <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="3.0.1" Condition=" '$(TargetFramework)' == 'netcoreapp3.0' ">
+    <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="3.0.1" Condition=" '$(TargetFramework)' == 'netcoreapp3.0' OR '$(TargetFramework)' == 'netcoreapp3.1' ">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
