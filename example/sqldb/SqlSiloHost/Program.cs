@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Threading.Tasks;
-using HelloWorld.Grains;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
 using Orleans.Runtime.Configuration;
@@ -42,10 +40,6 @@ namespace SqlSiloHost
                         .Configure<EndpointOptions>(options =>
                         {
                             options.AdvertisedIPAddress = IPAddress.Loopback;
-                        })
-                        .ConfigureApplicationParts(parts =>
-                        {
-                            parts.AddFromDependencyContext(typeof(HelloGrain).Assembly);
                         });
                 })
                 .ConfigureServices(services =>

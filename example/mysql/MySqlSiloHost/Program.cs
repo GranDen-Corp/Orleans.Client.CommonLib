@@ -1,5 +1,4 @@
-﻿using HelloWorld.Grains;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Orleans;
@@ -9,6 +8,7 @@ using Orleans.Runtime.Configuration;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using HelloNetCore3.Grains;
 
 namespace MySqlSiloHost
 {

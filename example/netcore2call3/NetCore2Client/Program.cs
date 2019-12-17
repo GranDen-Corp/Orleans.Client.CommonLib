@@ -1,18 +1,19 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.SystemConsole.Themes;
-using System;
-using System.Threading.Tasks;
 
-namespace MongoDbConsoleClient
+namespace NetCore2Client
 {
     class Program
     {
         static async Task Main(string[] _)
         {
             Log.Logger = new LoggerConfiguration()
+                //Turn off Orleans Statistics: ^^^ noisy logs
                 .MinimumLevel.Override("Orleans.RuntimeClientLogStatistics", LogEventLevel.Warning)
                 .WriteTo.Console(theme: AnsiConsoleTheme.Code)
                 .CreateLogger();
@@ -23,8 +24,14 @@ namespace MongoDbConsoleClient
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var logger = GetLogger<Program>(serviceProvider);
 
-            logger.LogInformation("Press enter to run demo");
-            Console.ReadLine();
+            logger.LogInformation("Press space key to start demo");
+            do
+            {
+                while (!Console.KeyAvailable)
+                {
+                    //wait
+                }
+            } while (Console.ReadKey(true).Key != ConsoleKey.Spacebar);
 
             try
             {

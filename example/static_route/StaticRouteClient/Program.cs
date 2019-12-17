@@ -10,7 +10,7 @@ namespace StaticRouteClient
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main(string[] _)
         {
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Override("Orleans.RuntimeClientLogStatistics", LogEventLevel.Warning)

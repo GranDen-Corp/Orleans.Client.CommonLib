@@ -3,8 +3,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <ServerGarbageCollection>true</ServerGarbageCollection>
-    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\grains\netcore3\HelloNetCore3.Grains\HelloNetCore3.Grains.csproj" />
+    <ProjectReference Include="..\NetCore3Demo.Grain\NetCore3Demo.Grain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,14 +1,14 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using System;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Orleans.Configuration;
 using Orleans.Hosting;
-using System;
 using Orleans.Runtime.Configuration;
 
-namespace LocalConsoleSiloHost
+namespace NetCore3SiloHost
 {
     class Program
     {

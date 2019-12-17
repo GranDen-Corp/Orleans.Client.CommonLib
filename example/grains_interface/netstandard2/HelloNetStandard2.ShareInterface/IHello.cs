@@ -1,5 +1,4 @@
-﻿using Orleans.CodeGeneration;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace HelloNetStandard2.ShareInterface
 {

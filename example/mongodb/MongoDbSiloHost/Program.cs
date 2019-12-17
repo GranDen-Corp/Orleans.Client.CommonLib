@@ -1,8 +1,6 @@
-﻿using HelloWorld.Grains;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
 using Orleans.Runtime.Configuration;
@@ -36,10 +34,6 @@ namespace MongoDbSiloHost
                 .UseMongoDBClustering(options =>
                 {
                     options.DatabaseName = "demo-silo-Clustering";
-                })
-                .ConfigureApplicationParts(parts =>
-                {
-                    parts.AddFromDependencyContext(typeof(HelloGrain).Assembly);
                 });
             })
             .ConfigureServices(services =>

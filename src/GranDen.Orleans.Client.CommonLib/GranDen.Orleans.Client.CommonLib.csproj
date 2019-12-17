@@ -53,17 +53,6 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.0" />
     <PackageReference Include="Microsoft.Orleans.Client" Version="3.0.2" />
     <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="3.0.2" />
-
-    <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="3.0.2" Condition=" '$(TargetFramework)' == 'netcoreapp3.0' OR '$(TargetFramework)' == 'netcoreapp3.1' ">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-
-    <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="2.4.4" Condition=" '$(TargetFramework)' == 'netcoreapp2.0' ">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-
     <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="3.0.2" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="Orleans.Providers.MongoDB" Version="3.1.1" />

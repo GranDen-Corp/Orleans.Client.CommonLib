@@ -1,9 +1,12 @@
 ﻿using System.Threading.Tasks;
-using HelloNetCore3.ShareInterface;
+using HelloNetStandard2.ShareInterface;
 using Microsoft.Extensions.Logging;
 
-namespace HelloNetCore3.Grains
-{ 
+//see: http://dotnet.github.io/orleans/Documentation/grains/code_generation.html#generate-code-for-a-specific-type
+[assembly: Orleans.CodeGeneration.KnownType(typeof(IHello))]
+
+namespace NetCore3Demo.Grain
+{
     public class HelloGrain : Orleans.Grain, IHello
     {
         private readonly ILogger<HelloGrain> _logger;
