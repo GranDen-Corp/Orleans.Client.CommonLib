@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
     <PropertyGroup>
-        <PackageReleaseNotes>1.2.4 : &#xD;&#xA;1. Build with .NET Core 3.1 SDK &#xD;&#xA;2. Make Client freedom to chose Orleans Code generation mechanism</PackageReleaseNotes>
+        <PackageReleaseNotes>1.2.4 : &#xD;&#xA;1. Build with .NET Core 3.1 SDK &#xD;&#xA;2. Make Client freedom to chose different Orleans Code generation mechanism</PackageReleaseNotes>
         <Version>1.2.4</Version>
     </PropertyGroup>
 </Project>

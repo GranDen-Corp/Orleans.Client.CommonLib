@@ -2,17 +2,22 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <OrleansCodeGenLogLevel>Trace</OrleansCodeGenLogLevel>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="2.4.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\GranDen.Orleans.Client.CommonLib\GranDen.Orleans.Client.CommonLib.csproj" />
-    <ProjectReference Include="..\..\grains_interface\HelloWorld.ShareInterface\HelloWorld.ShareInterface.csproj" />
+    <ProjectReference Include="..\..\grains_interface\netstandard2\HelloWorld.ShareInterface\HelloWorld.ShareInterface.csproj" />
   </ItemGroup>
 
 </Project>

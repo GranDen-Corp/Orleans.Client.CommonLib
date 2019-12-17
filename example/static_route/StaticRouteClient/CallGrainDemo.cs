@@ -7,6 +7,9 @@ using HelloWorld.ShareInterface;
 using Microsoft.Extensions.Logging;
 using Orleans.Configuration;
 
+//see: http://dotnet.github.io/orleans/Documentation/grains/code_generation.html#generate-code-for-all-types-in-another-assembly
+[assembly: Orleans.CodeGeneration.KnownAssembly(typeof(IHello))]
+
 namespace StaticRouteClient
 {
     public class CallGrainDemo
@@ -20,14 +23,14 @@ namespace StaticRouteClient
 
         public async Task DemoRun()
         {
-            var clusterInfoOption = new ClusterInfoOption{ClusterId = "dev", ServiceId = "HelloWorldApp" };
+            var clusterInfoOption = new ClusterInfoOption { ClusterId = "dev", ServiceId = "HelloWorldApp" };
             var staticGatewayOption = new StaticGatewayListProviderOptions
             {
                 Gateways = new List<Uri> { new Uri("gwy.tcp://127.0.0.1:30000/0") }
             };
 
             using (var client =
-                OrleansClientBuilder.CreateStaticRouteClient(_logger, clusterInfoOption, staticGatewayOption))
+                OrleansClientBuilder.CreateStaticRouteClient(_logger, clusterInfoOption, staticGatewayOption, new[] { typeof(CallGrainDemo) }))
             {
                 await client.ConnectWithRetryAsync();
                 _logger.LogInformation("Client successfully connect to silo host");

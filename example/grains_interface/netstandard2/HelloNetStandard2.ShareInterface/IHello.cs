@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Orleans.CodeGeneration;
+using System.Threading.Tasks;
 
-namespace HelloWorld.ShareInterface
+namespace HelloNetStandard2.ShareInterface
 {
     public interface IHello : Orleans.IGrainWithIntegerKey
     {
