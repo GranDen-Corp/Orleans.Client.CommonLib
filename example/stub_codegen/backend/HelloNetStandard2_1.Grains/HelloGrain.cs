@@ -1,12 +1,9 @@
-﻿using System.Threading.Tasks;
-using HelloNetCore2.ShareInterface;
+using System.Threading.Tasks;
+using HelloNetStandard.ShareInterface;
 using Microsoft.Extensions.Logging;
-using Orleans.CodeGeneration;
 
-[assembly: KnownAssembly(typeof(IHello))]
-
-namespace HelloNetCore2.Grains
-{ 
+namespace HelloNetStandard2_1.Grains
+{
     public class HelloGrain : Orleans.Grain, IHello
     {
         private readonly ILogger<HelloGrain> _logger;

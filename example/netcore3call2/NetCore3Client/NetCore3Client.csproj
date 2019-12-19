@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\GranDen.Orleans.Client.CommonLib\GranDen.Orleans.Client.CommonLib.csproj" />
-    <ProjectReference Include="..\..\grains_interface\netstandard2_1\HelloNetStandard2_1.ShareInterface\HelloNetStandard2_1.ShareInterface.csproj" />
+    <ProjectReference Include="..\..\grains_interface\netstandard_mixed\HelloNetStandard.ShareInterface\HelloNetStandard.ShareInterface.csproj" />
   </ItemGroup>
 
 </Project>

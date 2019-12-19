@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using HelloNetStandard2_1.ShareInterface;
+using HelloNetStandard.ShareInterface;
 using Microsoft.Extensions.Logging;
 
 namespace NetCore3Demo.Grain

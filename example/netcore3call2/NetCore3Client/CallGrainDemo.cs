@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using GranDen.Orleans.Client.CommonLib;
-using HelloNetStandard2_1.ShareInterface;
+using HelloNetStandard.ShareInterface;
 using Microsoft.Extensions.Logging;
 
 namespace NetCore3Client
