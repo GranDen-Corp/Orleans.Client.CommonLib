@@ -72,7 +72,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelloNetStandard.ShareInter
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "netcore2call3", "netcore2call3", "{CD47E1D0-EE7B-4A1C-8DC7-2CEF968FF911}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netcore2Client", "example\netcore2call3\NetCore2Client\Netcore2Client.csproj", "{D14EF943-38CC-4F57-A87E-B0202375DFE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetCore2Client", "example\netcore2call3\NetCore2Client\NetCore2Client.csproj", "{D14EF943-38CC-4F57-A87E-B0202375DFE8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{42345CFD-561B-4551-865A-3C731585CB4F}"
 EndProject
