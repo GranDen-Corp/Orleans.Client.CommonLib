@@ -3,6 +3,7 @@ using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using HelloNetCore3.ShareInterface;
+using Serilog;
 
 namespace SqlConsoleClient
 {
@@ -36,7 +37,10 @@ namespace SqlConsoleClient
                 };
 
             using var client =
-                OrleansClientBuilder.CreateClient(_logger, clusterInfoOption, sqlDbProviderOption);
+                OrleansClientBuilder.CreateClient(_logger,
+                clusterInfoOption, sqlDbProviderOption,
+                configureLogging: builder => { builder.AddSerilog(); });
+
             await client.ConnectWithRetryAsync();
             _logger.LogInformation("Client successfully connect to silo host");
 

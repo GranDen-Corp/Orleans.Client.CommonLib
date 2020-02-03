@@ -13,12 +13,10 @@ namespace NetStandard2ClientLib
             int gatewayPort = 30000,
             string clusterId = "dev",
             string serviceId = "dev",
-            IEnumerable<Type> applicationPartTypes = null,
-            bool usingSerilog = true
-            )
+            IEnumerable<Type> applicationPartTypes = null)
         {
             var builder = OrleansClientBuilder
-                .CreateLocalhostClientBuilder(gatewayPort, clusterId, serviceId, applicationPartTypes, usingSerilog)
+                .CreateLocalhostClientBuilder(gatewayPort, clusterId, serviceId, applicationPartTypes)
                 .ConfigureApplicationParts(_ => _.AddApplicationPart(typeof(IHello).Assembly).WithCodeGeneration());
 
             return builder;

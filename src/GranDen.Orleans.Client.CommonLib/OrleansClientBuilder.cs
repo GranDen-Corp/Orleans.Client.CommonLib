@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using Orleans.Configuration;
-using Serilog;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 using Orleans;
 using Orleans.Hosting;
 using Orleans.Runtime.Configuration;
@@ -23,17 +21,22 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="clusterInfo"></param>
         /// <param name="providerOption"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger</param>
+        /// <param name="configureLogging"></param>
         /// <returns></returns>
         public static IClusterClient CreateClient(ILogger logger,
             ClusterInfoOption clusterInfo,
             OrleansProviderOption providerOption,
             IEnumerable<Type> applicationPartTypes = null,
-            bool usingSerilog = true)
+            Action<ILoggingBuilder> configureLogging = null)
         {
             try
             {
-                return CreateClientBuilder(logger, clusterInfo, providerOption, applicationPartTypes, usingSerilog).Build();
+                var builder = CreateClientBuilder(logger, clusterInfo, providerOption, applicationPartTypes);
+                if (configureLogging != null)
+                {
+                    builder.ConfigureLogging(configureLogging);
+                }
+                return builder.Build();
             }
             catch (Exception ex)
             {
@@ -49,13 +52,11 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="clusterInfo"></param>
         /// <param name="providerOption"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger</param>
         /// <returns></returns>
         public static IClientBuilder CreateClientBuilder(ILogger logger,
             ClusterInfoOption clusterInfo,
             OrleansProviderOption providerOption,
-            IEnumerable<Type> applicationPartTypes = null,
-            bool usingSerilog = true)
+            IEnumerable<Type> applicationPartTypes = null)
         {
             var clientBuilder = new ClientBuilder()
                 .ConfigureCluster(clusterInfo, TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(60))
@@ -111,11 +112,6 @@ namespace GranDen.Orleans.Client.CommonLib
                 });
             }
 
-            if (usingSerilog)
-            {
-                clientBuilder.ConfigureLogging(builder => { builder.AddSerilog(dispose: true); });
-            }
-
             return clientBuilder;
         }
 
@@ -126,17 +122,23 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="clusterInfo"></param>
         /// <param name="staticGatewayOption"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger</param>
+        /// <param name="configureLogging"></param>
         /// <returns></returns>
         public static IClusterClient CreateStaticRouteClient(ILogger logger,
             ClusterInfoOption clusterInfo,
             StaticGatewayListProviderOptions staticGatewayOption,
             IEnumerable<Type> applicationPartTypes = null,
-            bool usingSerilog = true)
+            Action<ILoggingBuilder> configureLogging = null)
         {
             try
             {
-                return CreateStaticRouteClientBuilder(clusterInfo, staticGatewayOption, applicationPartTypes, usingSerilog).Build();
+                var builder = CreateStaticRouteClientBuilder(clusterInfo, staticGatewayOption, applicationPartTypes);
+                if (configureLogging != null)
+                {
+                    builder.ConfigureLogging(configureLogging);
+                }
+
+                return builder.Build();
             }
             catch (Exception ex)
             {
@@ -151,13 +153,11 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="clusterInfo"></param>
         /// <param name="staticGatewayOption"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog"></param>
         /// <returns></returns>
         public static IClientBuilder CreateStaticRouteClientBuilder(
             ClusterInfoOption clusterInfo,
             StaticGatewayListProviderOptions staticGatewayOption,
-            IEnumerable<Type> applicationPartTypes = null,
-            bool usingSerilog = true)
+            IEnumerable<Type> applicationPartTypes = null)
         {
             var clientBuilder = new ClientBuilder()
                 .ConfigureCluster(clusterInfo, TimeSpan.FromSeconds(20), TimeSpan.FromMinutes(60))
@@ -179,11 +179,6 @@ namespace GranDen.Orleans.Client.CommonLib
                         manager.AddApplicationPart(applicationPartType.Assembly).WithReferences();
                     }
                 });
-            }
-
-            if (usingSerilog)
-            {
-                clientBuilder.ConfigureLogging(builder => { builder.AddSerilog(dispose: true); });
             }
 
             return clientBuilder;
@@ -213,19 +208,24 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="serviceId"></param>
         /// <param name="clusterId"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger.</param>
+        /// <param name="configureLogging"></param>
         /// <returns></returns>
         public static IClusterClient CreateLocalhostClient(ILogger logger,
             int gatewayPort = 30000,
             string clusterId = "dev",
             string serviceId = "dev",
             IEnumerable<Type> applicationPartTypes = null,
-            bool usingSerilog = true)
+            Action<ILoggingBuilder> configureLogging = null)
         {
             try
             {
-                var clientBuilder = CreateLocalhostClientBuilder(gatewayPort, clusterId, serviceId, applicationPartTypes, usingSerilog);
-                return clientBuilder.Build();
+                var builder = CreateLocalhostClientBuilder(gatewayPort, clusterId, serviceId, applicationPartTypes);
+
+                if (configureLogging != null)
+                {
+                    builder.ConfigureLogging(configureLogging);
+                }
+                return builder.Build();
             }
             catch (Exception ex)
             {
@@ -241,14 +241,12 @@ namespace GranDen.Orleans.Client.CommonLib
         /// <param name="serviceId"></param>
         /// <param name="clusterId"></param>
         /// <param name="applicationPartTypes">Application parts (optional)</param>
-        /// <param name="usingSerilog">Default use Serilog (https://serilog.net), set to <c>false</c> to use Orleans' original logger.</param>
         /// <returns></returns>
         public static IClientBuilder CreateLocalhostClientBuilder(
         int gatewayPort = 30000,
         string clusterId = "dev",
         string serviceId = "dev",
-        IEnumerable<Type> applicationPartTypes = null,
-        bool usingSerilog = true)
+        IEnumerable<Type> applicationPartTypes = null)
         {
             var clientBuilder = new ClientBuilder()
                 .Configure<StatisticsOptions>(options =>
@@ -266,11 +264,6 @@ namespace GranDen.Orleans.Client.CommonLib
                         manager.AddApplicationPart(applicationPartType.Assembly).WithReferences();
                     }
                 });
-            }
-
-            if (usingSerilog)
-            {
-                clientBuilder.ConfigureLogging(builder => { builder.AddSerilog(dispose: true); });
             }
 
             return clientBuilder;

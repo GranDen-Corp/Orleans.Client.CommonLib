@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/example/localhost/LocalhostDemoClient/bin/Debug/netcoreapp2.2/LocalhostDemoClient.dll",
+            "program": "${workspaceFolder}/example/localhost/LocalhostDemoClient/bin/Debug/netcoreapp3.1/LocalhostDemoClient.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
@@ -21,7 +21,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/example/localhost/LocalConsoleSiloHost/bin/Debug/netcoreapp2.2/LocalConsoleSiloHost.dll",
+            "program": "${workspaceFolder}/example/localhost/LocalConsoleSiloHost/bin/Debug/netcoreapp3.1/LocalConsoleSiloHost.dll",
             "args": [],
             "cwd": "${workspaceFolder}/example/localhost/LocalConsoleSiloHost",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window

@@ -7,6 +7,7 @@ using HelloNetStandard2.ShareInterface;
 using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Hosting;
+using Serilog;
 
 namespace NetCore2Client
 {
@@ -22,9 +23,14 @@ namespace NetCore2Client
         public async Task DemoRun()
         {
             
-            var builder = OrleansClientBuilder.CreateLocalhostClientBuilder(clusterId: "dev", serviceId: "HelloWorldApp");
+            var builder = OrleansClientBuilder
+                .CreateLocalhostClientBuilder(clusterId: "dev", serviceId: "HelloWorldApp");
 
-            builder.ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(IHello).Assembly).WithCodeGeneration());
+            builder
+                .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(IHello).Assembly).WithCodeGeneration())
+                .ConfigureLogging(logBuilder => {
+                    logBuilder.AddSerilog();
+                });
 
             using (var client = builder.Build())
             {

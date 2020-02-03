@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using GranDen.Orleans.Client.CommonLib;
 using HelloNetStandard.ShareInterface;
 using Microsoft.Extensions.Logging;
+using Orleans;
 
 namespace StubCodeGenDemoClient
 {
@@ -17,8 +19,12 @@ namespace StubCodeGenDemoClient
         public async Task DemoRun()
         {
             var builder =
-                NetStandard2ClientLib.ClientLib.CreateOrleansClientBuilder(clusterId: "dev",
-                    serviceId: "HelloWorldApp");
+                NetStandard2ClientLib.ClientLib.CreateOrleansClientBuilder(clusterId: "dev", serviceId: "HelloWorldApp");
+
+            builder.ConfigureLogging(logging => 
+            {
+                logging.AddProvider(CreateLoggerProvider(_logger));
+            });
 
             using (var client = builder.Build())
             {
@@ -34,6 +40,11 @@ namespace StubCodeGenDemoClient
                 await client.Close();
                 _logger.LogInformation("Client successfully close connection to silo host");
             }
+        }
+
+        private ILoggerProvider CreateLoggerProvider(ILogger<CallGrainDemo> logger)
+        {
+            return new ExistingLoggerProvider<CallGrainDemo>(logger);
         }
     }
 }

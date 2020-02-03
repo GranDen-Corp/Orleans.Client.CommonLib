@@ -4,6 +4,7 @@
         {
             "label": "build",
             "dependsOn": [
+                "build Rpc Interface",
                 "build host",
                 "build client"
             ],
@@ -18,7 +19,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/example/HelloWorld.ShareInterface/HelloWorld.ShareInterface.csproj"
+                "${workspaceFolder}/example/grains_interface/netcore3/HelloNetCore3.ShareInterface/HelloNetCore3.ShareInterface.csproj"
             ],
             "problemMatcher": "$msCompile",
             "promptOnClose": false,

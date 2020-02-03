@@ -6,6 +6,7 @@ using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using HelloNetCore3.ShareInterface;
 using Microsoft.Extensions.Logging;
 using Orleans.Configuration;
+using Serilog;
 
 namespace StaticRouteClient
 {
@@ -27,7 +28,10 @@ namespace StaticRouteClient
             };
 
             using var client =
-                OrleansClientBuilder.CreateStaticRouteClient(_logger, clusterInfoOption, staticGatewayOption);
+                OrleansClientBuilder.CreateStaticRouteClient(_logger, 
+                clusterInfoOption, staticGatewayOption,
+                configureLogging: builder => { builder.AddSerilog(); });
+
             await client.ConnectWithRetryAsync();
             _logger.LogInformation("Client successfully connect to silo host");
 

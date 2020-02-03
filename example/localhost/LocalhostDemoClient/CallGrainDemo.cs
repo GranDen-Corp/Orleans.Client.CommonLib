@@ -2,6 +2,7 @@
 using GranDen.Orleans.Client.CommonLib;
 using HelloNetCore3.ShareInterface;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace LocalhostDemoClient
 {
@@ -16,7 +17,13 @@ namespace LocalhostDemoClient
 
         public async Task DemoRun()
         {
-            using var client = OrleansClientBuilder.CreateLocalhostClient(_logger, clusterId: "dev", serviceId: "HelloWorldApp");
+            using var client = OrleansClientBuilder
+                .CreateLocalhostClient(_logger, 
+                clusterId: "dev", serviceId: "HelloWorldApp",
+                configureLogging: builder => {
+                    builder.AddSerilog();
+                });
+
             await client.ConnectWithRetryAsync();
             _logger.LogInformation("Client successfully connect to silo host");
 

@@ -3,6 +3,7 @@ using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 using HelloNetCore3.ShareInterface;
+using Serilog;
 
 namespace MongoDbConsoleClient
 {
@@ -32,7 +33,10 @@ namespace MongoDbConsoleClient
                 }
             };
 
-            using var client = OrleansClientBuilder.CreateClient(_logger, clusterInfoOption, mongoDbProviderOption, new[] { typeof(IHello) });
+            using var client = OrleansClientBuilder
+                .CreateClient(_logger, clusterInfoOption, mongoDbProviderOption, new[] { typeof(IHello) }, 
+                builder => { builder.AddSerilog(); });
+
             await client.ConnectWithRetryAsync();
             _logger.LogInformation("Client successfully connect to silo host");
 
