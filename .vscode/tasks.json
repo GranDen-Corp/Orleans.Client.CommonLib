@@ -4,7 +4,6 @@
         {
             "label": "build",
             "dependsOn": [
-                "build Rpc Interface",
                 "build host",
                 "build client"
             ],
