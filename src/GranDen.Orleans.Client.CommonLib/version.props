@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-    <PropertyGroup>
-        <PackageReleaseNotes>1.3.1 : &#xD;&#xA;Update Orleans to v3.1.2</PackageReleaseNotes>
-        <Version>1.3.1</Version>
-    </PropertyGroup>
+  <PropertyGroup>
+    <PackageReleaseNotes>
+      1.3.1 :
+      &#xD;&#xA;1. Update Orleans to v3.1.2
+      &#xD;&#xA;2. Reduce associated mongoDb &amp; ADO.NET Clustering libraries dependency
+  </PackageReleaseNotes>
+    <Version>1.3.1</Version>
+  </PropertyGroup>
 </Project>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using GranDen.CallExtMethodLib;
+using GranDen.Orleans.Client.CommonLib.Exceptions;
 using Microsoft.Extensions.Logging;
 using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using Orleans.Configuration;
@@ -68,36 +70,67 @@ namespace GranDen.Orleans.Client.CommonLib
             switch (providerOption.DefaultProvider.ToLower())
             {
                 case "sqldb":
-                    logger.LogTrace("Using SQL DB provider");
-                    clientBuilder.UseAdoNetClustering(options =>
                     {
-                        var sqlDbSetting = providerOption.SQLDB.Cluster;
 
-                        options.Invariant = sqlDbSetting.Invariant ?? @"System.Data.SqlClient";
-                        options.ConnectionString = sqlDbSetting.DbConn;
-                    });
+                        logger.LogTrace("Using SQL DB provider");
+                        clientBuilder.UseAdoNetClustering(options =>
+                        {
+                            var sqlDbSetting = providerOption.SQLDB.Cluster;
+
+                            options.Invariant = sqlDbSetting.Invariant ?? @"System.Data.SqlClient";
+                            options.ConnectionString = sqlDbSetting.DbConn;
+                        });
+                    }
+
                     break;
 
                 case "mysql":
-                    logger.LogTrace("Using MySQL DB provider");
-                    clientBuilder.UseAdoNetClustering(options =>
                     {
-                        var mysqlDbSetting = providerOption.SQLDB.Cluster;
+                        logger.LogTrace("Using MySQL DB provider");
+                        clientBuilder.UseAdoNetClustering(options =>
+                        {
+                            var mysqlDbSetting = providerOption.SQLDB.Cluster;
 
-                        options.Invariant = mysqlDbSetting.Invariant ?? @"MySql.Data.MySqlClient";
-                        options.ConnectionString = mysqlDbSetting.DbConn;
-                    });
+                            options.Invariant = mysqlDbSetting.Invariant ?? @"MySql.Data.MySqlClient";
+                            options.ConnectionString = mysqlDbSetting.DbConn;
+                        });
+                    }
+
                     break;
 
                 case "mongodb":
-                    logger.LogTrace("Using MongoDB provider...");
-                    var mongoSetting = providerOption.MongoDB.Cluster;
-                    clientBuilder.UseMongoDBClient(mongoSetting.DbConn).UseMongoDBClustering(options =>
                     {
-                        options.DatabaseName = mongoSetting.DbName;
+                        logger.LogTrace("Using MongoDB provider...");
+                        var mongoSetting = providerOption.MongoDB.Cluster;
+                        try
+                        {
+                            var helper = new ExtMethodInvoker("Orleans.Providers.MongoDB");
+                            clientBuilder = helper.Invoke<IClientBuilder>(
+                                new ExtMethodInfo { MethodName = "UseMongoDBClient", ExtendedType = typeof(IClientBuilder) },
+                                clientBuilder, mongoSetting.DbConn);
 
-                        options.CollectionPrefix = mongoSetting.CollectionPrefix;
-                    });
+                            var mongoDbMembershipTableOptionsType =
+                                helper.ExtensionLibAssembly.GetType("Orleans.Providers.MongoDB.Configuration.MongoDBGatewayListProviderOptions", true);
+                            var mongoDbMembershipTableOptionsValue = new Dictionary<string, object>
+                            {
+                                ["DatabaseName"] = mongoSetting.DbName
+                            };
+                            if (!string.IsNullOrEmpty(mongoSetting.CollectionPrefix))
+                            {
+                                mongoDbMembershipTableOptionsValue["CollectionPrefix"] = mongoSetting.CollectionPrefix;
+                            }
+                            var configMongoDbClusteringAction =
+                                CreateDelegateHelper.CreateAssignValueAction(mongoDbMembershipTableOptionsType, "options", mongoDbMembershipTableOptionsValue);
+
+                            clientBuilder = helper.Invoke<IClientBuilder>(
+                                new ExtMethodInfo { MethodName = "UseMongoDBClustering", ExtendedType = typeof(IClientBuilder) },
+                                clientBuilder, configMongoDbClusteringAction);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new MongoDbLibLoadFailedException(ex);
+                        }
+                    }
                     break;
             }
 
