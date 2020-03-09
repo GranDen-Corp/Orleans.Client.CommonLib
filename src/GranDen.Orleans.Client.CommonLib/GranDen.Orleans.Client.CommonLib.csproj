@@ -53,7 +53,6 @@
     <PackageReference Include="GranDen.CallExtMethodLib" Version="1.0.3" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.2" />
     <PackageReference Include="Microsoft.Orleans.Client" Version="3.1.2" />
-    <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="3.1.2" />
     <PackageReference Include="Microsoft.Orleans.Core.Abstractions" Version="3.1.2" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
     <PackageReference Include="Polly" Version="7.2.0" />

@@ -23,8 +23,8 @@ namespace MongoDbConsoleClient
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var logger = GetLogger<Program>(serviceProvider);
 
-            logger.LogInformation("Press enter to run demo");
-            Console.ReadLine();
+            logger.LogInformation("Press space key to start demo");
+            WaitForKey(ConsoleKey.Spacebar);
 
             try
             {
@@ -39,6 +39,18 @@ namespace MongoDbConsoleClient
 
             logger.LogInformation("Press enter to exit");
             Console.ReadLine();
+        }
+
+        private static void WaitForKey(ConsoleKey key)
+        {
+            do
+            {
+                while (!Console.KeyAvailable)
+                {
+                    //wait
+                    Task.Delay(new TimeSpan(0, 0, 1)).Wait();
+                }
+            } while (Console.ReadKey(true).Key != key);
         }
 
         private static void ConfigureServices(ServiceCollection services)

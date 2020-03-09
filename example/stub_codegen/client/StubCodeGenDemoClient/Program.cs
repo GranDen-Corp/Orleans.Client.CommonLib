@@ -25,13 +25,7 @@ namespace StubCodeGenDemoClient
             var logger = GetLogger<Program>(serviceProvider);
 
             logger.LogInformation("Press space key to start demo");
-            do
-            {
-                while (!Console.KeyAvailable)
-                {
-                    //wait
-                }
-            } while (Console.ReadKey(true).Key != ConsoleKey.Spacebar);
+            WaitForKey(ConsoleKey.Spacebar);
 
             try
             {
@@ -46,6 +40,18 @@ namespace StubCodeGenDemoClient
 
             logger.LogInformation("Press enter to exit");
             Console.ReadLine();
+        }
+
+        private static void WaitForKey(ConsoleKey key)
+        {
+            do
+            {
+                while (!Console.KeyAvailable)
+                {
+                    //wait
+                    Task.Delay(new TimeSpan(0, 0, 1)).Wait();
+                }
+            } while (Console.ReadKey(true).Key != key);
         }
 
         private static void ConfigureServices(ServiceCollection services)

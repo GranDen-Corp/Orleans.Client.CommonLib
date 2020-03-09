@@ -73,29 +73,62 @@ namespace GranDen.Orleans.Client.CommonLib
                     {
 
                         logger.LogTrace("Using SQL DB provider");
-                        clientBuilder.UseAdoNetClustering(options =>
+                        var sqlDbSetting = providerOption.SQLDB.Cluster;
+                        try
                         {
-                            var sqlDbSetting = providerOption.SQLDB.Cluster;
+                            var helper = new ExtMethodInvoker("Orleans.Clustering.AdoNet");
+                            var adoNetClusteringClientOptionsType = helper.ExtensionLibAssembly.GetType("Orleans.Configuration.AdoNetClusteringClientOptions", true);
+                            var adoNetClusteringClientOptionsValue = new Dictionary<string, object>
+                            {
+                                ["ConnectionString"] = sqlDbSetting.DbConn,
+                                ["Invariant"] = sqlDbSetting.Invariant ?? @"System.Data.SqlClient"
+                            };
+                            var configSqlDbClusteringAction =
+                                CreateDelegateHelper.CreateAssignValueAction(adoNetClusteringClientOptionsType, "options", adoNetClusteringClientOptionsValue);
 
-                            options.Invariant = sqlDbSetting.Invariant ?? @"System.Data.SqlClient";
-                            options.ConnectionString = sqlDbSetting.DbConn;
-                        });
+                            clientBuilder = helper.Invoke<IClientBuilder>(
+                                new ExtMethodInfo { MethodName = "UseAdoNetClustering", ExtendedType = typeof(IClientBuilder) },
+                                clientBuilder, configSqlDbClusteringAction);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new SqlDbLibLoadFailedException(ex);
+                        }
                     }
-
                     break;
 
                 case "mysql":
                     {
                         logger.LogTrace("Using MySQL DB provider");
-                        clientBuilder.UseAdoNetClustering(options =>
+                        var mysqlDbSetting = providerOption.SQLDB.Cluster;
+                        try
                         {
-                            var mysqlDbSetting = providerOption.SQLDB.Cluster;
+                            var helper = new ExtMethodInvoker("Orleans.Clustering.AdoNet");
+                            var adoNetClusteringClientOptionsType = helper.ExtensionLibAssembly.GetType("Orleans.Configuration.AdoNetClusteringClientOptions", true);
+                            var adoNetClusteringClientOptionsValue = new Dictionary<string, object>
+                            {
+                                ["ConnectionString"] = mysqlDbSetting.DbConn,
+                                ["Invariant"] = mysqlDbSetting.Invariant ?? @"MySql.Data.MySqlClient"
+                            };
+                            var configSqlDbClusteringAction =
+                                CreateDelegateHelper.CreateAssignValueAction(adoNetClusteringClientOptionsType, "options", adoNetClusteringClientOptionsValue);
 
-                            options.Invariant = mysqlDbSetting.Invariant ?? @"MySql.Data.MySqlClient";
-                            options.ConnectionString = mysqlDbSetting.DbConn;
-                        });
+                            clientBuilder = helper.Invoke<IClientBuilder>(
+                                new ExtMethodInfo { MethodName = "UseAdoNetClustering", ExtendedType = typeof(IClientBuilder) },
+                                clientBuilder, configSqlDbClusteringAction);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new MySqlLibLoadFailedException(ex);
+                        }
+                        //clientBuilder.UseAdoNetClustering(options =>
+                        //{
+                        //    var mysqlDbSetting = providerOption.SQLDB.Cluster;
+
+                        //    options.Invariant = mysqlDbSetting.Invariant ?? @"MySql.Data.MySqlClient";
+                        //    options.ConnectionString = mysqlDbSetting.DbConn;
+                        //});
                     }
-
                     break;
 
                 case "mongodb":
