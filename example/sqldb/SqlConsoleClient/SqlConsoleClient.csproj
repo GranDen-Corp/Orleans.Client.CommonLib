@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <TrimmerRootAssembly Include="Microsoft.Orleans.Clustering.AdoNet" />
+    <TrimmerRootAssembly Include="System.Data.SqlClient" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="3.1.2" />
     <PackageReference Include="Serilog" Version="2.9.0" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1" />

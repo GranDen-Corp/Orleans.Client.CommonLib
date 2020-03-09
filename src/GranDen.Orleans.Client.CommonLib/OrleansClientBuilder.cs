@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using GranDen.Orleans.Client.CommonLib.TypedOptions;
 using Orleans.Configuration;
 using Orleans;
-using Orleans.Hosting;
 using Orleans.Runtime.Configuration;
 
 namespace GranDen.Orleans.Client.CommonLib
@@ -121,13 +120,6 @@ namespace GranDen.Orleans.Client.CommonLib
                         {
                             throw new MySqlLibLoadFailedException(ex);
                         }
-                        //clientBuilder.UseAdoNetClustering(options =>
-                        //{
-                        //    var mysqlDbSetting = providerOption.SQLDB.Cluster;
-
-                        //    options.Invariant = mysqlDbSetting.Invariant ?? @"MySql.Data.MySqlClient";
-                        //    options.ConnectionString = mysqlDbSetting.DbConn;
-                        //});
                     }
                     break;
 
