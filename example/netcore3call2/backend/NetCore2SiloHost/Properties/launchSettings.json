@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "NetCore3call2Hosting_server": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

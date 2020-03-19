@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "StaticRouteHosting_server": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "InRamHosting_server": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

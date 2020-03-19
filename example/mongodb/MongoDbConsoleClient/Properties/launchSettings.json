@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "MongoDbHosting_client": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

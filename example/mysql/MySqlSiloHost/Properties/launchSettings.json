@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "MySqlHosting_server": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

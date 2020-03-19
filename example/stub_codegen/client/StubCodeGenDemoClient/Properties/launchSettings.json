@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "StubCodeGenHosting_client": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}

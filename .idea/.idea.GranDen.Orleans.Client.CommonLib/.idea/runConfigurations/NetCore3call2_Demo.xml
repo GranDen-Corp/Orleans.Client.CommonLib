@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="NetCore3call2 demo" type="CompoundRunConfigurationType">
+    <toRun name="StubCodeGen client" type="LaunchSettings" />
+    <toRun name="StubCodeGen server" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>

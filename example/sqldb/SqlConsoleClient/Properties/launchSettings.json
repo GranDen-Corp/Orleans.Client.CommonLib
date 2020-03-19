@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "SqlDbHosting_client": {
+      "commandName": "Project",
+      "environmentVariables": {
+      }
+    }
+  }
+}
