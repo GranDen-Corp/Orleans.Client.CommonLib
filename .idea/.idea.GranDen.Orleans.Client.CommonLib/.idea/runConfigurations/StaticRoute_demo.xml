@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="StaticRoute demo" type="CompoundRunConfigurationType">
+    <toRun name="StaticRoute client" type="LaunchSettings" />
+    <toRun name="StaticRoute server" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>
